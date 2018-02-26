@@ -1,0 +1,622 @@
+﻿<!doctype html>
+<html lang="">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title></title>
+
+  <!-- toolkit styles -->
+  <link rel="stylesheet" href="https://www.bathnes.gov.uk/docs/weather-updates/assets/patterns/styles/screen.css">
+  <link rel="stylesheet" href="https://www.bathnes.gov.uk/docs/weather-updates/assets/patterns/styles/ui.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+  <!-- /toolkit styles -->
+
+
+
+</head>
+<body ng-app="phonecatApp" ng-init="nav = 0">
+  <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+  <div id="skiplink-container">
+      <div>
+          <a href="#content" class="skiplink">Skip to main content</a>
+      </div>
+    </div>
+
+
+    <!-- Menu show/hide JS -->
+    <!-- Adapted from https://www.w3schools.com/howto/howto_js_toggle_class.asp -->
+    <!-- Need to move into menu.js and that file be imported into app.js -->
+    <script>
+    	function showHideMenu() {
+    		var element = document.getElementById("navigation-primary");
+
+    		if (element.classList) {
+    			element.classList.toggle("navigation-primary--active");
+    		} else {
+    			// For IE9
+    			var classes = element.className.split(" ");
+    			var i = classes.indexOf("navigation-primary--active");
+
+    			if (i >= 0)
+    				classes.splice(i, 1);
+    			else
+    				classes.push("navigation-primary--active");
+    			element.className = classes.join(" ");
+    		}
+    	}
+    </script>
+    <style>
+    	#global-header {
+    		background-color: #fff;
+    		position: relative;
+    	}
+
+    	.header-wrapper {
+    		position: relative;
+    		max-width: 960px;
+    		margin: 0 auto;
+    		padding-top: 1em;
+    		padding-bottom: 1em;
+    		padding-left: 15px;
+    		padding-right: 15px;
+    	}
+
+    	@media (min-width: 960px) {
+    		.header-wrapper {
+    			padding-left: 0;
+    			padding-right: 0;
+    		}
+    	}
+
+    	.header-global {
+    		overflow: hidden;
+    	}
+
+    	.header-logo {
+    		width: 128.4px;
+    		height: auto;
+    	}
+
+    	.header-logo img {
+    		max-width: 100%;
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-logo {
+    			width: 160.5px;
+    			float: left;
+    		}
+    	}
+
+    	.header-search {
+    		margin-top: 10px;
+    		margin-bottom: 20px;
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-search {
+    			margin-top: 1em;
+    			float: right;
+    			width: 50%;
+    			text-align: right;
+    			margin-top: 12px;
+    			margin-bottom: 0;
+    		}
+    	}
+
+    	.header-search .site-search {
+    		position: relative;
+    	}
+
+    	.header-search .site-search .form-control {
+    		width: calc(100% - 80px);
+    		border-width: 1px;
+    		border-color: #bfc1c3;
+    		font-size: 16px;
+    		height: 36px;
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-search .site-search .form-control {
+    			width: calc(100% - 100px);
+    		}
+    	}
+
+    	.header-search .site-search .button {
+    		position: absolute;
+    		top: 0;
+    		right: 45px;
+    		text-indent: -9999px;
+    		background-image: url(assets/patterns/images/icon-search-2x.png);
+    		background-repeat: no-repeat;
+    		background-position: 55% 50%;
+    		background-size: 52.5% 40%;
+    		box-shadow: none;
+    		width: 36px;
+    		height: 36px;
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-search .site-search .button {
+    			right: 0;
+    		}
+    	}
+
+    	.header-search--desktop {
+    		display: none;
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-search--desktop {
+    			display: block;
+    		}
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-search--mobile {
+    			display: none;
+    		}
+    	}
+
+    	#global-header-bar {
+    		position: relative;
+    		background-color: #00aeef;
+    		height: 5px;
+    	}
+
+    	.header-marque {
+    		position: absolute;
+    		bottom: 0;
+    		right: 15px;
+    		width: 0;
+    		height: 0;
+    		border-style: solid;
+    		border-width: 25px 0 0 25px;
+    		border-color: transparent transparent transparent #00aeef;
+    	}
+
+    	.header-commercial {
+    		position: relative;
+    		overflow: hidden;
+    		background-color: #0b0c0c;
+    	}
+
+    	.header-commercial .header-wrapper {
+    		padding-top: 0.75em;
+    		padding-bottom: 0.5em;
+    	}
+
+    	.header-commercial__logo {
+    		width: 91.42857px;
+    		height: auto;
+    		display: block;
+    	}
+
+    	.header-commercial__logo img {
+    		max-width: 100%;
+    	}
+
+    	@media (min-width: 769px) {
+    		.header-commercial__logo {
+    			width: 106.66667px;
+    		}
+    	}
+
+    	.header-commercial__marque {
+    		position: absolute;
+    		bottom: 0;
+    		right: 15px;
+    		width: 0;
+    		height: 0;
+    		border-style: solid;
+    		border-width: 30px 0 0 30px;
+    		border-color: transparent transparent transparent #fff;
+    	}
+
+    	@media (min-width: 960px) {
+    		.header-commercial__marque {
+    			right: 0;
+    		}
+    	}
+    </style>
+    <header role="banner" id="global-header">
+    	<div class="header-wrapper">
+    		<div class="header-global">
+    			<div class="header-logo">
+    				<a href="" id="logo" class="content">
+                        <img src="assets/patterns/images/logos/bathnes-logo-colour.png" alt="Bath & North East Somerset Council" />
+                    </a>
+    			</div>
+    			<div class="header-search header-search--desktop">
+            <form id="search" class="site-search" action="http://www.bathnes.gov.uk/search/site/" method="post">
+    					<label class="form-label visually-hidden" for="search-site">Search across the site</label>
+    					<input class="form-control" id="search-site" type="text" name="search-site" placeholder="Search bathnes.gov.uk">
+    					<input class="button" type="submit" value="Search">
+    				</form>
+    			</div>
+    		</div>
+    		<button id="js-header-toggle" class="navigation-trigger" onclick="showHideMenu()">Menu</button>
+    	</div>
+    	<nav role="navigation" id="navigation-primary" class="navigation-primary">
+    		<ul class="navigation-primary-list">
+    			<li class="navigation-primary-list__item"><a href="#">Home</a></li>
+    			<li class="navigation-primary-list__item"><a href="#">A -Z Services</a></li>
+          <li class="navigation-primary-list__item"><a href="#">Pay for it</a></li>
+            <li class="navigation-primary-list__item"><a href="#">Give us feedback on</a></li>
+              <li class="navigation-primary-list__item"><a href="#">What's on</a></li>
+                <li class="navigation-primary-list__item"><a href="#">Custom Services</a></li>
+    			<li class="navigation-primary-list__search">
+    				<div class="header-search header-search--mobile">
+    					<form id="search" class="site-search" action="" method="">
+    						<label class="form-label visually-hidden" for="search-site">Search across the site</label>
+    						<input class="form-control" id="search-site" type="text" name="search-site" placeholder="Search bathnes.gov.uk">
+    						<input class="button" type="submit" value="Search">
+    					</form>
+    				</div>
+    			</li>
+    		</ul>
+    	</nav>
+    	<div class="header-marque"></div>
+    </header>
+    <div id="global-header-bar"></div>
+
+
+
+
+    <!-- <header role="banner" id="global-header">
+    	<div class="header-wrapper">
+    		<div class="header-global">
+    			<div class="header-logo">
+    				<a href="/" id="logo" class="content">
+                        <img src="https://www.bathnes.gov.uk/docs/weather-updates/assets/patterns/images/logos/bathnes-logo-colour.png" alt="Bath & North East Somerset Council" />
+                    </a>
+    			</div>
+    			<div class="header-search">
+    				<form id="search" class="site-search" action="https://www.bathnes.gov.uk/search/site/" method="post">
+    					<label class="form-label visually-hidden" for="search-site">Search across the site</label>
+    					<input class="form-control" id="search-site" type="text" name="search-site" placeholder="Search bathnes.gov.uk">
+    					<input class="button" type="submit" value="Search">
+    				</form>
+    			</div>
+    		</div>
+    		<a href="#" class="js-header-toggle navigation-trigger">Menu</a>
+    		<div class="header-marque"></div>
+    	</div>
+      <nav role="navigation" id="navigation-primary" class="navigation-primary">
+          <ul class="navigation-primary-list">
+              <li class="navigation-primary-list__item"><a href="http://www.bathnes.gov.uk">Home</a></li>
+              <li class="navigation-primary-list__item"><a href="http://www.bathnes.gov.uk/a-z/all">A-to-Z of Services</a></li>
+              <li class="navigation-primary-list__item"><a href="http://www.bathnes.gov.uk/pay">Pay for it</a></li>
+              <li class="navigation-primary-list__item"><a href="http://www.bathnes.gov.uk/feedback">Give us feedback on</a></li>
+              <li class="navigation-primary-list__item"><a href="http://www.bathnes.gov.uk/events">What's on</a></li>
+              <li class="navigation-primary-list__item"><a href="http://www.bathnes.gov.uk/customer-services">Customer Services</a></li>
+
+          </ul>
+      </nav>
+    </header>
+    <div id="global-header-bar"></div> -->
+
+<div class="full-page-width-wrapper">
+    <header class="hero">
+  <div id="page-container" class="hero__content">
+
+  <div class="grid-row">
+      <div class="column-two-thirds">
+
+            <div class="nav0" ng-if="nav === 0">
+            <h1 class="heading-xlarge">Adverse weather updates</h1>
+            <p class="lede">
+              Your Council's important service updates when adverse weather conditions hit the area.</p>
+            </div>
+
+        <div class="nav1 ng-cloak" ng-if="nav === 1">
+        <h1 class="heading-xlarge">Service updates</h1>
+        <p class="lede">All the lastest service updates and tweets when adverse weather hits our area.</p>
+        </div>
+
+
+      <div class="nav2 ng-cloak" ng-if="nav === 2">
+        <h1 class="heading-xlarge">School Closures</h1>
+        <p class="lede">Status of School closures in Bath &amp; North East Somerset in adverse weather</p>
+        </div>
+
+        <div class="nav3 ng-cloak" ng-if="nav === 3">
+        <h1 class="heading-xlarge">
+        Bath Car Park Tracker
+        </h1>
+
+        <p class="lede">
+
+          Check Bath car park capacity before you leave home in adverse weather.
+
+          </p>
+      </div>
+
+      <div class="nav4 ng-cloak" ng-if="nav === 4">
+      <h1 class="heading-xlarge">
+      5 day weather forecast
+      </h1>
+
+      <p class="lede">
+
+        5 day weather forecast for the Bath & North East Somerset area.
+
+        </p>
+    </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+</div>
+  <main id="content" role="main">
+
+    <div class="intro" ng-show="nav === 0">
+      <div id="page-container">
+        <div class="grid-row">
+            <div class="column-third">
+                <div class="cards text-center">
+                  <img src="images/grit-bins.png" alt="Road Closures" />
+                  <button ng-click="nav = 1"><h3 class="heading-small">Services Updates</button>
+                </div>
+              </div>
+            <div class="column-third">
+                <div class="cards text-center">
+                  <img src="images/school-closures.png" alt="School Closures" />
+                  <a href="#">
+                   <button ng-click="nav = 2"><h3 class="heading-small">School Closures</h3></button>
+                </a>
+                </div>
+              </div>
+            <div class="column-third">
+              <div class="cards text-center">
+                <a href="#">
+                <img src="images/car-park.png" alt="Road Closures" />
+                <button ng-click="nav = 3"><h3 class="heading-small">Bath Car Park Tracker</h3></button>
+              </a>
+              </div>
+            </div>
+            <div class="column-third">
+                  <div class="cards text-center">
+                    <a href="#">
+                    <img src="images/weather-icon.png" alt="5 Day weather forcast" />
+                    <button ng-click="nav = 4"><h3 class="heading-small">5 day weather forcast</h3></button>
+                  </a>
+                  </div>
+              </div>
+            <div class="column-third">
+              <div class="cards text-center">
+                <a href="https://www.nhs.uk/staywell">
+                <img src="images/health.png" alt="Road Closures" />
+                <button> <h3 class="heading-small">Stay well this winter</h3></button>
+              </a>
+               <p class="font-xsmall">Opens in new browser window</p>
+              </div>
+            </div>
+            <div class="column-third">
+              <div class="cards text-center">
+                <a href="https://bathnes.roadworks.org/">
+                <img src="images/road-closures.png" alt="Road Closures" />
+                <button><h3 class="heading-small">Road Closures</h3>
+                </button></a>
+                <p class="font-xsmall">Opens in new browser window</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+<div class="data">
+    <div class="wrapper">
+      <div ng-if="nav === 1" ng-controller="weatherupdateCtrl">
+        <div class="service-update-wrapper">
+        <h2 class="heading-large">Core Service Updates</h2>
+        <div class="updates-content" ng-repeat="update in updates">
+          <div ng-bind-html="update.node.Body | html"></div>
+
+        </div>
+        </div>
+
+        <div class="twitter-wrapper" ng-controller="TwitterUpdatesCtrl">
+          <h2 class="heading-large">Twitter Updates</h2>
+              <div class="grid-row">
+
+            	<div class="column-one-half" ng-repeat="tweet in tweets">
+                  <div class="twitter-wrapper">
+                      <div class="tweet-image-wrapper">
+                        <img src="{{tweet.node.profile_image_url}}" alt="Bathnes Twitter Logo">
+                        <strong class="fullname">{{tweet.node.name}} <span><a href="https://twitter.com/{{tweet.node.screen_name}}">@{{tweet.node.screen_name}}</a></span></strong>
+                      </div>
+                      <div class="tweet">
+                  		{{tweet.node.text}}
+                      </div>
+              	</div>
+            </div>
+
+            </div>
+          <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
+      </div>
+    </div>
+
+      <div ng-if="nav === 2"  ng-controller="schoolsCtrl">
+        <label>Search: <input ng-model="searchText"></label>
+        <form>
+        <div class="form-group">
+          <fieldset class="inline">
+            <legend>
+              <h1 class="heading-medium">
+                Filter by School Type
+              </h1>
+            </legend>
+            <div class="multiple-choice">
+
+              <input id="radio-inline-1"  type="radio" ng-model="searchText" name="radio-inline-group" value="Primary Schools">
+              <label for="radio-inline-1">Primary School</label>
+            </div>
+            <div class="multiple-choice">
+              <input id="radio-inline-2" type="radio" ng-model="searchText" name="radio-inline-group" value="Secondary Schools">
+              <label for="radio-inline-2">Secondary School</label>
+            </div>
+
+            <div class="multiple-choice">
+              <input id="radio-inline-3" type="radio" ng-model="searchText" name="radio-inline-group" value="Special Schools">
+              <label for="radio-inline-3">Special School</label>
+            </div>
+
+          </fieldset>
+        </div>
+</form>
+        <table>
+          	<thead>
+          		<tr>
+          			<th scope="col">School</th>
+          			<th class="numeric" scope="col">Status</th>
+          			<th class="numeric" scope="col">Last Updated</th>
+          		</tr>
+          	</thead>
+          	<tbody>
+          		<tr ng-repeat="school in schools | filter:searchText | orderBy ">
+          			<th scope="row">{{school.node.title}}</th>
+          			<td class="numeric">{{school.node.Status}}</td>
+          			<td class="numeric">{{school.node.changed}}</td>
+          		</tr>
+          	</tbody>
+          </table>
+          <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
+      </div>
+      <div ng-if="nav === 3">
+          <div class="page-container" ng-controller="carparkController">
+            <div class="gird-row">
+                <div class="column-third" ng-repeat="space in spaces |orderBy: 'name'">
+                    <div class="car-park text-center green" ng-class="{'amber': space.percentage > 80, 'red': space.percentage > 95 }">
+                      <strong>{{space.name}}</strong>
+                      <p>No: of free spaces:<strong>
+
+                      <div ng-if="space.capacity - space.occupancy >= 1" >
+                      <p>{{space.capacity - space.occupancy}} </p>
+                      </div>
+
+                      <div ng-if="space.capacity - space.occupancy < 1" >
+                      <p>0</p>
+                      </div>
+                      </strong></p>
+                    </div>
+                </div>
+              </div>
+          </div>
+          <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
+      </div>
+      <div ng-if="nav === 4">
+        <div ng-controller="weatherCtrl">
+              <div class="grid-row">
+              <div class="column-one-third" ng-repeat="day in days | limitTo:5">
+              <div class="day-wrapper">
+
+
+                  <div class="gird-row">
+
+                      <div class="column-one-half">
+                        <img src="images/weather-icons/{{day.code}}.png" width="55px" height="auto" alt="weather icons">
+                        <h3>{{day.date}}</h3>
+                        <p>{{day.text}}</p>
+                      </div>
+
+                      <div class="column-one-quarter">
+                        <img src="images/hot.png" width="20px" height="auto" alt="High Icon">
+                        High of </br>  <span>{{day.high}}</span>
+                      </div>
+
+                      <div class="column-one-quarter">
+                        <img src="images/cold.png" width="20px" height="auto" alt="Cold Icon">
+                        Low of </br> <span>{{day.low | number:0}}</span>
+                      </div>
+
+                    <div class="clearfix"></div>
+                  </div>
+
+              </div>
+            </div>
+      </div>
+
+    </div>
+    <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
+</div>
+
+
+  </div>
+</div>
+  </main>
+
+
+    <footer class="global-footer">
+        <div class="footer-wrapper">
+            <div class="grid-row">
+
+              <div class="column-two-thirds">
+                    <div class="footer-logo">
+                        <img src="https://www.bathnes.gov.uk/docs/weather-updates/assets/patterns/images/logos/bathnes-logo-mono.png" alt="Bath & North East Somerset Council" />
+                    </div>
+
+                    <ul class="footer-list">
+                        <li><a href="http://www.bathnes.gov.uk/accessibility">Accessibility</a></li>
+                        <li><a href="http://www.bathnes.gov.uk/contact-us">Contact Us</a></li>
+                        <li><a href="http://www.bathnes.gov.uk/disclaimer-and-privacy-statement">Disclaimer &amp; Privacy Policy</a></li>
+                        <li><a href="http://www.bathnes.gov.uk/cookies">Cookies</a></li>
+                    </ul>
+              </div>
+
+              <div class="column-one-thirds">
+                  <h3 class="heading-medium">Follow us on:
+</h3>
+                  <ul class="social-links">
+                      <li>
+                          <a href="https://twitter.com/bathnes">
+                          <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+                          </a>
+                          </li>
+
+                      <li>
+                          <a href="https://www.facebook.com/bathnes">
+                          <i class="fa fa-facebook fa-3x" aria-hidden="true"></i>
+                          </a>
+                          </li>
+                      <li>
+                          <a href="https://www.youtube.com/user/bathnescouncil">
+                              <i class="fa fa-youtube fa-3x" aria-hidden="true"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://www.instagram.com/bathnescouncil">
+                              <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+                          </a>
+                      </li>
+                  </ul>
+
+
+              </div>
+
+            </div>
+        </div>
+    </footer>
+  <!-- toolkit scripts -->
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-sanitize.js"></script>
+     <script src="https://www.bathnes.gov.uk/docs/weather-updates/assets/patterns/scripts/app.js"></script>
+     <script src="https://www.bathnes.gov.uk/docs/weather-updates/assets/ui/scripts/ui.js"></script>
+     <script src="scripts/app.js"></script>
+     <script src="scripts/controllers/main.js"></script>
+     <script src="scripts/controllers/about.js"></script>
+  <!-- /toolkit scripts -->
+
+  <!-- if no GOVUK-namespaced module has loaded we can assume JS has failed and remove the class !-->
+  <!-- <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script> -->
+</body>
+</html>
