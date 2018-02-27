@@ -32,16 +32,16 @@ $scope.showCon=function(con){
 
 
 phonecatApp.controller('weatherCtrl', function ($scope, $http) {
-  $http.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22bath%2C%20uk%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys').success(function(data) {
-$scope.days = data.query.results.channel.item.forecast;
-
+  $http.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22bath%2C%20uk%22)%20and%20u%3D%22c%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&u=c').success(function(data) {
+$scope.days = data.query.results.channel.item.forecast;      
+      
   });
 
 });
 
 
 phonecatApp.controller('weatherupdateCtrl', function ($scope, $http, $sce) {
-    $http.get('http://www.bathnes.gov.uk/coldweather.json').success(function(data) {
+    $http.get('https://www.bathnes.gov.uk/form/coldweather.json').success(function(data) {
 
         $scope.updates = data.nodes;
 
@@ -60,7 +60,7 @@ phonecatApp.filter('html', function($sce) {
 
 
 phonecatApp.controller('TwitterUpdatesCtrl', function ($scope, $http) {
-  $http.get('http://www.bathnes.gov.uk/tweets-raw.json').success(function(data) {
+  $http.get('https://www.bathnes.gov.uk/form/tweets-raw.json').success(function(data) {
 $scope.tweets = data.nodes;
 
 
@@ -90,7 +90,7 @@ phonecatApp.controller('/gritbinsCtrl', function($scope, $http) {
 
 phonecatApp.controller('schoolsCtrl', function ($scope, $http) {
 
-  $http.get('http://www.bathnes.gov.uk/school.json').success(function(data) {
+  $http.get('https://www.bathnes.gov.uk/form/school.json').success(function(data) {
 
     $scope.schools = data;
 
