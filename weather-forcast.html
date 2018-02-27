@@ -274,36 +274,7 @@
   <div class="grid-row">
       <div class="column-two-thirds">
 
-            <div class="nav0" ng-if="nav === 0">
-            <h1 class="heading-xlarge">Adverse weather updates</h1>
-            <p class="lede">
-              Your Council's important service updates when adverse weather conditions hit the area.</p>
-            </div>
 
-        <div class="nav1 ng-cloak" ng-if="nav === 1">
-        <h1 class="heading-xlarge">Service updates</h1>
-        <p class="lede">All the lastest service updates and tweets when adverse weather hits our area.</p>
-        </div>
-
-
-      <div class="nav2 ng-cloak" ng-if="nav === 2">
-        <h1 class="heading-xlarge">School Closures</h1>
-        <p class="lede">Status of School closures in Bath &amp; North East Somerset in adverse weather</p>
-        </div>
-
-        <div class="nav3 ng-cloak" ng-if="nav === 3">
-        <h1 class="heading-xlarge">
-        Bath Car Park Tracker
-        </h1>
-
-        <p class="lede">
-
-          Check Bath car park capacity before you leave home in adverse weather.
-
-          </p>
-      </div>
-
-      <div class="nav4 ng-cloak" ng-if="nav === 4">
       <h1 class="heading-xlarge">
       5 day weather forecast
       </h1>
@@ -313,7 +284,7 @@
         5 day weather forecast for the Bath & North East Somerset area.
 
         </p>
-    </div>
+
       </div>
     </div>
   </div>
@@ -322,166 +293,12 @@
 </div>
   <main id="content" role="main">
 
-    <div class="intro" ng-show="nav === 0">
-      <div id="page-container">
-        <div class="grid-row">
-            <div class="column-third">
-                <div class="cards text-center">
-                  <a href="service-updates.html">
-                  <img src="images/grit-bins.png" alt="Road Closures" />
-                  <button><h3 class="heading-small">Services Updates</button>
-                  </a>
-                </div>
-              </div>
-            <div class="column-third">
-                <div class="cards text-center">
-                  <a href="school-closures.html">
-                  <img src="images/school-closures.png" alt="School Closures" />
-                  <a href="school-closures.html">
-                   <button><h3 class="heading-small">School Closures</h3></button>
-                </a>
-                </div>
-              </div>
-            <div class="column-third">
-              <div class="cards text-center">
-                <a href="car-park-tracker.html">
-                <img src="images/car-park.png" alt="Road Closures" />
-                <button><h3 class="heading-small">Bath Car Park Tracker</h3></button>
-              </a>
-              </div>
-            </div>
-            <div class="column-third">
-                  <div class="cards text-center">
-                    <a href="weather-forcast.html">
-                    <img src="images/weather-icon.png" alt="5 Day weather forcast" />
-                    <button><h3 class="heading-small">5 day weather forcast</h3></button>
-                  </a>
-                  </div>
-              </div>
-            <div class="column-third">
-              <div class="cards text-center">
-                <a href="https://www.nhs.uk/staywell">
-                <img src="images/health.png" alt="Road Closures" />
-                <button> <h3 class="heading-small">Stay well this winter</h3></button>
-              </a>
-               <p class="font-xsmall">Opens in new browser window</p>
-              </div>
-            </div>
-            <div class="column-third">
-              <div class="cards text-center">
-                <a href="https://bathnes.roadworks.org/">
-                <img src="images/road-closures.png" alt="Road Closures" />
-                <button><h3 class="heading-small">Road Closures</h3>
-                </button></a>
-                <p class="font-xsmall">Opens in new browser window</p>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
 
 
 <div class="data">
     <div class="wrapper">
-      <div ng-if="nav === 1" ng-controller="weatherupdateCtrl">
-        <div class="service-update-wrapper">
-        <h2 class="heading-large">Core Service Updates</h2>
-        <div class="updates-content" ng-repeat="update in updates">
-          <div ng-bind-html="update.node.Body | html"></div>
 
-        </div>
-        </div>
 
-        <div class="twitter-wrapper" ng-controller="TwitterUpdatesCtrl">
-          <h2 class="heading-large">Twitter Updates</h2>
-              <div class="grid-row">
-
-            	<div class="column-one-half" ng-repeat="tweet in tweets">
-                  <div class="twitter-wrapper">
-                      <div class="tweet-image-wrapper">
-                        <img src="{{tweet.node.profile_image_url}}" alt="Bathnes Twitter Logo">
-                        <strong class="fullname">{{tweet.node.name}} <span><a href="https://twitter.com/{{tweet.node.screen_name}}">@{{tweet.node.screen_name}}</a></span></strong>
-                      </div>
-                      <div class="tweet">
-                  		{{tweet.node.text}}
-                      </div>
-              	</div>
-            </div>
-
-            </div>
-          <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
-      </div>
-    </div>
-
-      <div ng-if="nav === 2"  ng-controller="schoolsCtrl">
-        <label>Search: <input ng-model="searchText"></label>
-        <form>
-        <div class="form-group">
-          <fieldset class="inline">
-            <legend>
-              <h1 class="heading-medium">
-                Filter by School Type
-              </h1>
-            </legend>
-            <div class="multiple-choice">
-
-              <input id="radio-inline-1"  type="radio" ng-model="searchText" name="radio-inline-group" value="Primary Schools">
-              <label for="radio-inline-1">Primary School</label>
-            </div>
-            <div class="multiple-choice">
-              <input id="radio-inline-2" type="radio" ng-model="searchText" name="radio-inline-group" value="Secondary Schools">
-              <label for="radio-inline-2">Secondary School</label>
-            </div>
-
-            <div class="multiple-choice">
-              <input id="radio-inline-3" type="radio" ng-model="searchText" name="radio-inline-group" value="Special Schools">
-              <label for="radio-inline-3">Special School</label>
-            </div>
-
-          </fieldset>
-        </div>
-</form>
-        <table>
-          	<thead>
-          		<tr>
-          			<th scope="col">School</th>
-          			<th class="numeric" scope="col">Status</th>
-          			<th class="numeric" scope="col">Last Updated</th>
-          		</tr>
-          	</thead>
-          	<tbody>
-          		<tr ng-repeat="school in schools | filter:searchText | orderBy ">
-          			<th scope="row">{{school.node.title}}</th>
-          			<td class="numeric">{{school.node.Status}}</td>
-          			<td class="numeric">{{school.node.changed}}</td>
-          		</tr>
-          	</tbody>
-          </table>
-          <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
-      </div>
-      <div ng-if="nav === 3">
-          <div class="page-container" ng-controller="carparkController">
-            <div class="gird-row">
-                <div class="column-third" ng-repeat="space in spaces |orderBy: 'name'">
-                    <div class="car-park text-center green" ng-class="{'amber': space.percentage > 80, 'red': space.percentage > 95 }">
-                      <strong>{{space.name}}</strong>
-                      <p>No: of free spaces:<strong>
-
-                      <div ng-if="space.capacity - space.occupancy >= 1" >
-                      <p>{{space.capacity - space.occupancy}} </p>
-                      </div>
-
-                      <div ng-if="space.capacity - space.occupancy < 1" >
-                      <p>0</p>
-                      </div>
-                      </strong></p>
-                    </div>
-                </div>
-              </div>
-          </div>
-          <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
-      </div>
-      <div ng-if="nav === 4">
         <div ng-controller="weatherCtrl">
               <div class="grid-row">
               <div class="column-one-third" ng-repeat="day in days | limitTo:5">
@@ -514,8 +331,8 @@
       </div>
 
     </div>
-    <a href="https://www.bathnes.gov.uk/docs/weather-updates" class="link-back">Back</a>
-</div>
+    <a href="index.html" class="link-back">Back</a>
+
 
 
   </div>
