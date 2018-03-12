@@ -392,7 +392,7 @@
           	</thead>
           	<tbody>
           		<tr ng-repeat="school in schools | filter:searchText | orderBy ">
-          			<th scope="row">{{school.node.title}}</th>
+          			<th scope="row">{{school.node.title}}<br />{{school.node.body}}</th>
           			<td class="numeric">{{school.node.Status}}</td>
           			<td class="numeric">{{school.node.changed}}</td>
           		</tr>
